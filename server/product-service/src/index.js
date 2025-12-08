@@ -282,10 +282,13 @@ app.get('/phones/:id', async (req, res) => {
             });
         }
         
-        // Format response theo yêu cầu
+        // Format response theo yêu cầu (bao gồm ALL fields cần thiết cho Cart)
         const response = {
             _id: phone._id,
             phoneId: phone.phoneId || phone.id || String(phone._id),
+            title: phone.title || phone.name || 'Unknown Product',  // ← THÊM FIELD NÀY
+            price: phone.price || 0,  // ← THÊM FIELD NÀY
+            image: phone.image || '/img/articles/product-default.jpg',  // ← THÊM FIELD NÀY
             description: phone.description || phone.desc || '',
             warranty: phone.warranty || '12 tháng',
             colors: phone.colors || phone.color || 'Standard',
