@@ -340,43 +340,6 @@ app.get('/phones/search', async (req, res) => {
     }
 });
 
-/**
- * @swagger
- * /phones/by-id/{id}:
- *   get:
- *     summary: Lấy sản phẩm theo ID field
- *     description: Lấy thông tin sản phẩm theo field 'id' (string hoặc numeric)
- *     tags: [Product Details]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           oneOf:
- *             - type: string
- *             - type: integer
- *         description: ID của sản phẩm (có thể là string hoặc number)
- *         example: 1
- *     responses:
- *       200:
- *         description: Thông tin sản phẩm
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
- *       404:
- *         description: Không tìm thấy sản phẩm
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: Lỗi server
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
 // GET /phones/by-id/:id and alias /phonesby-id/:id -> explicitly fetch by `id` field (string or numeric)
 const fetchPhoneByIdHandler = async (req, res) => {
     const { id } = req.params;
@@ -408,79 +371,8 @@ const fetchPhoneByIdHandler = async (req, res) => {
 };
 
 app.get('/phones/by-id/:id', fetchPhoneByIdHandler);
-
-/**
- * @swagger
- * /phonesby-id/{id}:
- *   get:
- *     summary: Lấy sản phẩm theo ID field (alias)
- *     description: Alias của /phones/by-id/:id - Lấy thông tin sản phẩm theo field 'id'
- *     tags: [Product Details]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           oneOf:
- *             - type: string
- *             - type: integer
- *         description: ID của sản phẩm
- *         example: 1
- *     responses:
- *       200:
- *         description: Thông tin sản phẩm
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
- *       404:
- *         description: Không tìm thấy sản phẩm
- *       500:
- *         description: Lỗi server
- */
 app.get('/phonesby-id/:id', fetchPhoneByIdHandler);
 
-/**
- * @swagger
- * /phones/{id}:
- *   get:
- *     summary: Lấy chi tiết sản phẩm
- *     description: Lấy thông tin chi tiết đầy đủ của sản phẩm theo MongoDB ObjectId, phoneId hoặc id
- *     tags: [Product Details]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: MongoDB ObjectId, phoneId hoặc id của sản phẩm
- *         example: 507f1f77bcf86cd799439011
- *     responses:
- *       200:
- *         description: Chi tiết sản phẩm đầy đủ
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ProductDetail'
- *       400:
- *         description: ID không hợp lệ
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       404:
- *         description: Không tìm thấy sản phẩm
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: Lỗi server
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
 // GET /phones/:id -> Chi tiết sản phẩm
 // Trả về: Thông tin chi tiết với phoneId, description, warranty, colors, specs
 app.get('/phones/:id', async (req, res) => {
@@ -568,42 +460,6 @@ app.get('/phones/:id', async (req, res) => {
     }
 });
 
-/**
- * @swagger
- * /phoneinfo/{id}:
- *   get:
- *     summary: Lấy thông tin PhoneInfo
- *     description: Lấy thông tin từ collection PhoneInfo theo phoneId, id hoặc ObjectId (dùng cho development/testing)
- *     tags: [Product Details]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: phoneId, id hoặc MongoDB ObjectId
- *         example: 1
- *     responses:
- *       200:
- *         description: Thông tin PhoneInfo
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               description: Document từ PhoneInfo collection (flexible schema)
- *       404:
- *         description: Không tìm thấy
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: Lỗi server
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
 // GET /phoneinfo/:id -> for development/testing return the PhoneInfo document where phoneId === 1
 app.get('/phoneinfo/:id', async (req, res) => {
     const { id } = req.params;
